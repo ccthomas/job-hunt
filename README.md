@@ -9,13 +9,6 @@
 * Install Docker
 * PgAdmin (Recommended)
 
-### Setup
-
-Install Requirements
-```commandline
-pip install -r requirements.txt
-```
-
 ### Usage
 
 1. Run Project
@@ -25,7 +18,11 @@ pip install -r requirements.txt
    docker-compose up -d
    ```
 
-2. Rebuild Project
+2. Create Tabless
+    The Table creation is not automated at this time.
+    Instead, you will need to manually connect to the DB and run the sql scripts in order.
+
+3. Rebuild Project (if neeeded)
     ```commandline
     docker compose up -d --no-deps --build <service>
     ```
