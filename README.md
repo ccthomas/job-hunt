@@ -7,6 +7,7 @@
 ## Getting Started
 * Install Python 3
 * Install Docker
+* PgAdmin (Recommended)
 
 ### Setup
 
@@ -16,6 +17,13 @@ pip install -r requirements.txt
 ```
 
 ### Usage
+
+1. Run Database
+
+   The following will run Postgres Docker Container in background.
+   ```commandline
+   docker-compose up -d
+   ```
 
 1. Build Project
     ```commandline
