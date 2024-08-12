@@ -1,8 +1,11 @@
 from flask import Flask, render_template, jsonify
+from flask_cors import CORS
 import psycopg2
 import os
 
 app = Flask(__name__)
+CORS(app)  # This will enable CORS for all routes and origins
+# CORS(app, resources={r"/application": {"origins": "http://localhost:3000"}})
 
 # Database connection parameters
 DB_HOST = os.environ.get('DB_HOST', 'localhost')
