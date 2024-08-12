@@ -15,7 +15,7 @@
 
    The following will run Postgres Docker Container in background.
    ```commandline
-   docker-compose up -d
+   docker-compose --env-file .env up -d  
    ```
 
 2. Create Tabless
