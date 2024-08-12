@@ -18,19 +18,14 @@ pip install -r requirements.txt
 
 ### Usage
 
-1. Run Database
+1. Run Project
 
    The following will run Postgres Docker Container in background.
    ```commandline
    docker-compose up -d
    ```
 
-1. Build Project
+2. Rebuild Project
     ```commandline
-    docker build -t python-hello-world . 
-    ```
-
-2. Run Project
-    ```commandline
-     docker run python-hello-world  
+    docker compose up -d --no-deps --build <service>
     ```
