@@ -1,47 +1,39 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask
 from flask_cors import CORS
-import psycopg2
 import os
+from database.database import DatabaseConnection
+from services import ApplicationService
+from controllers.application import ApplicationController
 
 app = Flask(__name__)
-CORS(app)  # This will enable CORS for all routes and origins
-# CORS(app, resources={r"/application": {"origins": "http://localhost:3000"}})
-
-# Database connection parameters
-DB_HOST = os.environ.get('DB_HOST', 'localhost')
-DB_PORT = os.environ.get('DB_PORT', '5432')
-DB_NAME = os.environ.get('DB_NAME', 'postgres')
-DB_USER = os.environ.get('DB_USER', 'myuser')
-DB_PASSWORD = os.environ.get('DB_PASSWORD', 'mypassword')
-
-def get_db_connection():
-    connection = psycopg2.connect(
-        host=DB_HOST,
-        port=DB_PORT,
-        dbname=DB_NAME,
-        user=DB_USER,
-        password=DB_PASSWORD
-    )
-    return connection
+CORS(app)  # Enable CORS for all routes and origins
 
 
 @app.route('/')
 def home():
     return 'hello test'
 
-@app.route('/application', methods=['GET'])
-def get_applications():
-    connection = get_db_connection()
-    cursor = connection.cursor()
-    cursor.execute('SELECT * FROM application.application')
-    rows = cursor.fetchall()
-    cursor.close()
-    connection.close()
-
-    # Assuming the rows are tuples of the form (id, name, ...)
-    applications = [dict(zip([desc[0] for desc in cursor.description], row)) for row in rows]
-    return jsonify(applications)
 
 if __name__ == "__main__":
+    # Create a DatabaseConnection instance
+    db = DatabaseConnection(
+        db_type='postgres',
+        host=os.environ.get('DB_HOST', 'localhost'),
+        port=os.environ.get('DB_PORT', '5432'),
+        database=os.environ.get('DB_NAME', 'postgres'),
+        user=os.environ.get('DB_USER', 'myuser'),
+        password=os.environ.get('DB_PASSWORD', 'mypassword')
+    )
+
+    # Create an ApplicationService instance with the DatabaseConnection
+    app_service = ApplicationService(db)
+
+    # Create an ApplicationController instance with the ApplicationService
+    app_controller = ApplicationController(app_service)
+
+    # Register routes
+    app_controller.register_routes(app)
+
+    # Run the Flask app
     port = int(os.environ.get('PORT', 5000))
     app.run(debug=True, host='0.0.0.0', port=port)
