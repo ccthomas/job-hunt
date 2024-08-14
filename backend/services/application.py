@@ -27,7 +27,8 @@ class ApplicationService:
 
             self.logger.debug("Executing query to delete application.")
             cursor.execute('''
-                   DELETE FROM application.application
+                   UPDATE application.application
+                   SET deleted_timestamp = CURRENT_TIMESTAMP
                    WHERE id = %(id)s
                ''', {
                 'id': application_id
@@ -58,7 +59,17 @@ class ApplicationService:
             cursor = connection.cursor()
 
             self.logger.debug("Executing query to get all applications.")
-            cursor.execute('SELECT * FROM application.application')
+            cursor.execute('''
+            SELECT
+                id,
+                company,
+                link text,
+                job_title,
+                applied_timestamp
+            FROM 
+                application.application
+            WHERE
+                deleted_timestamp IS NULL;''')
             rows = cursor.fetchall()
 
             self.logger.debug(f"Retrieved {len(rows)} rows from the database.")
