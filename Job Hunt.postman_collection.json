@@ -7,12 +7,181 @@
 	},
 	"item": [
 		{
-			"name": "Test Hello World",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
+			"name": "Applications",
+			"item": [
+				{
+					"name": "Interactions",
+					"item": [
+						{
+							"name": "Save Interactions",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"application_id\": \"80884db0-77a2-49f0-a769-1e20dcd89b1d\",\n  \"name\": \"{{$randomJobTitle}}\",\n  \"rating\": 5,\n  \"company\": \"Test Company\",\n  \"job_title\": \"Test Title\",\n  \"type\": \"PHONE_SCREENING\",\n  \"notes\": \"Discussed project management experience and availability.\",\n  \"interaction_timestamp\": \"2024-08-13T15:30:00Z\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/{{interactionPath}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"{{interactionPath}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Interactions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/{{interactionPath}}?application_id=00000000-77a2-49f0-a769-1e20dcd89b1d",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"{{interactionPath}}"
+									],
+									"query": [
+										{
+											"key": "application_id",
+											"value": "00000000-77a2-49f0-a769-1e20dcd89b1d"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Interaction",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/{{interactionPath}}/00000000-31f5-435d-955a-25f36efb8387",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"{{interactionPath}}",
+										"00000000-31f5-435d-955a-25f36efb8387"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Applications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{applicationPath}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{applicationPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Applications",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n    \"applied_timestamp\": \"{{$isoTimestamp}}\",\n    \"company\": \"{{$randomCompanyName}}\",\n    \"job_title\": \"{{$randomJobTitle}}\",\n    \"link\": \"{{$randomUrl}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/{{applicationPath}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{applicationPath}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Applications",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/{{applicationPath}}/00000000-31f5-435d-955a-25f36efb8387",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"{{applicationPath}}",
+								"00000000-31f5-435d-955a-25f36efb8387"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "applicationPath",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "interactionPath",
+			"value": "",
+			"type": "string"
 		}
 	]
 }
