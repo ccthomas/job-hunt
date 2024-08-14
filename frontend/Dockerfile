@@ -22,6 +22,9 @@ RUN npm install -g serve
 # Set environment variable with a default value
 ENV PORT=3000
 
+# Set environment variable with a default value
+ENV BACKEND_API=http://127.0.0.1:5000
+
 # Expose the port the app runs on
 EXPOSE ${PORT}
 

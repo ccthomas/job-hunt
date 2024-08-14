@@ -1,9 +1,10 @@
-CREATE SCHEMA IF NOT EXISTS application;
-
-CREATE TABLE application.application (
-    id VARCHAR(36) PRIMARY KEY,
-    company VARCHAR(36) NOT NULL, -- Name now. UUID Later
-    link TEXT,
-    job_title TEXT,
-    applied_timestamp TIMESTAMPTZ
+CREATE TABLE IF NOT EXISTS application.application
+(
+    id character varying(36) COLLATE pg_catalog."default" NOT NULL,
+    company character varying(36) COLLATE pg_catalog."default" NOT NULL,
+    link text COLLATE pg_catalog."default",
+    job_title text COLLATE pg_catalog."default",
+    applied_timestamp timestamptz,
+	deleted_timestamp timestamptz,
+    CONSTRAINT application_pkey PRIMARY KEY (id)
 )

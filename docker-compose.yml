@@ -37,6 +37,7 @@ services:
       - ${FRONTEND_PORT}:${FRONTEND_PORT}
     environment:
       PORT: ${FRONTEND_PORT}
+      BACKEND_API: ${BACKEND_API}
       NODE_ENV: production
     depends_on:
       - backend

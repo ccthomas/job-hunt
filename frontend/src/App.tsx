@@ -1,16 +1,21 @@
-// src/App.tsx
 import React from 'react';
-import ApplicationList from './components/ApplicationList';
-import { Container, Typography } from '@mui/material';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ApplicationPage from './pages/ApplicationPage';
+import ApplicationEditPage from './pages/ApplicationEditPage';
+import ResourcePage from './pages/ResourcePage';
+import JobHuntAppBar from './components/JobHuntAppBar';
 
-const App: React.FC = () => {
+const App = () => {
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom>
-        Application List
-      </Typography>
-      <ApplicationList />
-    </Container>
+    <Router>
+      <JobHuntAppBar />
+      <Routes>
+        <Route path="/" element={<ResourcePage />} />
+        <Route path="/applications" element={<ApplicationPage />} />
+        <Route path="/applications/edit" element={<ApplicationEditPage />} />
+        {/* Add more routes as needed */}
+      </Routes>
+    </Router>
   );
 };
 
