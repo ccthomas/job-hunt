@@ -1,9 +1,10 @@
 from flask import Flask
 from flask_cors import CORS
 import os
+
 from database.database import DatabaseConnection
-from services import ApplicationService
-from controllers.application import ApplicationController
+from services import ApplicationService, InteractionService
+from controllers import ApplicationController, InteractionController
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes and origins
@@ -25,14 +26,17 @@ if __name__ == "__main__":
         password=os.environ.get('DB_PASSWORD', 'mypassword')
     )
 
-    # Create an ApplicationService instance with the DatabaseConnection
-    app_service = ApplicationService(db)
+    # Create Services
+    application_service = ApplicationService(db)
+    interaction_service = InteractionService(db)
 
-    # Create an ApplicationController instance with the ApplicationService
-    app_controller = ApplicationController(app_service)
+    # Create Applications
+    application_controller = ApplicationController(application_service)
+    interaction_controller = InteractionController(interaction_service)
 
     # Register routes
-    app_controller.register_routes(app)
+    application_controller.register_routes(app)
+    interaction_controller.register_routes(app)
 
     # Run the Flask app
     port = int(os.environ.get('PORT', 5000))

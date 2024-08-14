@@ -6,14 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="69c225aa-d978-4f6b-aa7f-df65b4482ba1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/application.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/application.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/sql/000-application_schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/sql/000-application_schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ApplicationList.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/utils/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/__main__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/application.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/application.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +39,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main"
+    "git-widget-placeholder": "interaction-backend"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -98,5 +95,15 @@
       <updated>1723479444891</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/backend/models/interaction.py</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
