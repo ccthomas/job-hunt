@@ -5,12 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="69c225aa-d978-4f6b-aa7f-df65b4482ba1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/ApplicationTabBar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/contexts/InteractionContext.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/InteractionEditPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/InteractionPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/types/interaction.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/utils/formatters.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/__main__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/application.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/application.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/interaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/interaction.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/contexts/ApplicationContexts.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ApplicationEditPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ApplicationEditPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ApplicationPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ApplicationPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/utils/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/api.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +47,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "interaction-backend"
+    "git-widget-placeholder": "interaction-frontend"
   }
 }]]></component>
   <component name="RecentsManager">
