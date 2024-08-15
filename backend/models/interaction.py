@@ -3,8 +3,9 @@ from typing import Dict, Any, Optional
 from enum import Enum
 
 class InteractionType(str, Enum):
-    PHONE_SCREENING = 'PHONE_SCREENING'
     HIRING_MANAGER = 'HIRING_MANAGER'
+    INITIAL_CONTACT = 'INITIAL_CONTACT'
+    PHONE_SCREENING = 'PHONE_SCREENING'
 
 class Interaction:
     def __init__(

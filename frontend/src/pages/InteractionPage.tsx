@@ -1,16 +1,17 @@
 import React from 'react';
-import { Box, TextField, IconButton, Menu, MenuItem, Button, Link, Typography, Paper, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Box, TextField, IconButton, Menu, MenuItem, Button, Typography, Paper, Dialog, DialogActions, DialogContent, DialogTitle, Rating } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
-import { useApplicationContext } from '../contexts/ApplicationContext';
-import { deleteApplication } from '../utils/api';
-import { Application } from '../types/application';
+import { useInteractionContext } from '../contexts/InteractionContext';
+import { deleteInteraction } from '../utils/api';
+import { Interaction } from '../types/interaction';
 import ApplicationTabBar from '../components/ApplicationTabBar';
+import { formatType } from '../utils/formatters';
 
-const ApplicationPage: React.FC = () => {
+const InteractionPage: React.FC = () => {
   const navigate = useNavigate();
-  const { applications, loading, refetchApplications } = useApplicationContext();
+  const { interactions, loading, refetchInteractions } = useInteractionContext();
 
   const [search, setSearch] = React.useState<string>('');
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -19,17 +20,15 @@ const ApplicationPage: React.FC = () => {
   const [errorMessage, setError] = React.useState<string | null>(null);
   
   // Search
-
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   };
 
-  const filteredApplications = applications.filter((app) =>
-    app.company.toLowerCase().includes(search.toLowerCase())
+  const filteredInteractions = interactions.filter((interaction) =>
+    interaction.company.toLowerCase().includes(search.toLowerCase())
   );
 
   // Menu
-
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>, id: string) => {
     setAnchorEl(event.currentTarget);
     setSelectedId(id);
@@ -47,7 +46,6 @@ const ApplicationPage: React.FC = () => {
   };
 
   // Delete Dialog
-
   const handleOpenDialog = () => {
     if (selectedId) {
       setOpenDialog(true);
@@ -56,20 +54,19 @@ const ApplicationPage: React.FC = () => {
   };
 
   const handleCloseDialog = async (confirm: boolean) => {
-    console.log(confirm, selectedId);
     if (confirm && selectedId) {
       try {
-        await deleteApplication(selectedId);
-        refetchApplications();
+        await deleteInteraction(selectedId);
+        refetchInteractions();
         setError(null); // Clear previous error
       } catch (err) {
-        setError('Failed to delete application');
+        setError('Failed to delete interaction');
       }
     }
     setOpenDialog(false);
   };
 
-  const columns: GridColDef<Application>[] = [
+  const columns: GridColDef<Interaction>[] = [
     {
       field: 'id',
       headerName: 'Actions',
@@ -85,81 +82,87 @@ const ApplicationPage: React.FC = () => {
       ),
     },
     { field: 'company', headerName: 'Company', width: 100 },
-    { field: 'link', headerName: 'Link', width: 150, renderCell: (params) => <Link href={params.row.link}>Link to Application</Link> },
     { field: 'job_title', headerName: 'Job Title', width: 300 },
-    { field: 'applied_timestamp', headerName: 'Applied Timestamp', width: 200, renderCell: (params) => new Date(params.row.applied_timestamp).toLocaleString() },
+    { field: 'type', headerName: 'Type', width: 200, renderCell: (params) => formatType(params.value as string) },
+    { field: 'rating', headerName: 'Rating', width:  200, renderCell: (params) => <Rating name="read-only" value={params.row.rating} readOnly /> },
+    {
+      field: 'interaction_timestamp',
+      headerName: 'Timestamp',
+      width: 200,
+      renderCell: (params) => new Date(params.row.interaction_timestamp).toLocaleString(),
+    },
   ];
 
   return (
     <div>
-    <ApplicationTabBar />
-      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+        <ApplicationTabBar />
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
         <Paper elevation={3} sx={{ width: '80%', padding: 2 }}>
-          <Box sx={{ mb: 2 }}>
+            <Box sx={{ mb: 2 }}>
             <Typography variant="h4" sx={{ mb: 2 }}>
-              Application Management
+                Interaction Management
             </Typography>
             <Box sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
-              <Box sx={{ flexGrow: 0 }}>
+                <Box sx={{ flexGrow: 0 }}>
                 <Button variant="contained" color="primary" onClick={() => navigate('edit')}>
-                  New Application
+                    New Interaction
                 </Button>
-              </Box>
-              <Box sx={{ flexGrow: 1 }} />
-              <Box>
+                </Box>
+                <Box sx={{ flexGrow: 1 }} />
+                <Box>
                 <TextField
-                  variant="outlined"
-                  label="Search by Company"
-                  value={search}
-                  onChange={handleSearchChange}
-                  sx={{ width: 300 }}
+                    variant="outlined"
+                    label="Search by Company"
+                    value={search}
+                    onChange={handleSearchChange}
+                    sx={{ width: 300 }}
                 />
-              </Box>
+                </Box>
             </Box>
             <DataGrid
-              rows={filteredApplications}
-              columns={columns}
-              slots={{ toolbar: GridToolbar }}
-              loading={loading}
+                rows={filteredInteractions}
+                columns={columns}
+                slots={{ toolbar: GridToolbar }}
+                loading={loading}
             />
             <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
             >
-              <MenuItem onClick={() => handleMenuEdit()}>Edit</MenuItem>
-              <MenuItem onClick={handleOpenDialog}>Delete</MenuItem>
+                <MenuItem onClick={handleMenuEdit}>Edit</MenuItem>
+                <MenuItem onClick={handleOpenDialog}>Delete</MenuItem>
             </Menu>
-          </Box>
+            </Box>
         </Paper>
 
         {/* Confirmation Dialog */}
         <Dialog
-          open={openDialog}
-          onClose={() => handleCloseDialog(false)}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
+            open={openDialog}
+            onClose={() => handleCloseDialog(false)}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">
-            {"Are you sure you want to delete this application?"}
-          </DialogTitle>
-          <DialogContent>
+            <DialogTitle id="alert-dialog-title">
+            {"Are you sure you want to delete this interaction?"}
+            </DialogTitle>
+            <DialogContent>
             {errorMessage && <Typography color="error">{errorMessage}</Typography>}
-          </DialogContent>
-          <DialogActions>
+            </DialogContent>
+            <DialogActions>
             <Button onClick={() => handleCloseDialog(false)} color="primary">
-              No
+                No
             </Button>
             <Button onClick={() => handleCloseDialog(true)} color="secondary">
-              Yes
+                Yes
             </Button>
-          </DialogActions>
+            </DialogActions>
         </Dialog>
-      </Box>
+        </Box>
     </div>
   );
 };
 
-export default ApplicationPage;
+export default InteractionPage;

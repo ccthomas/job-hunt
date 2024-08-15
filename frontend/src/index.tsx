@@ -8,7 +8,8 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { createTheme, ThemeProvider } from '@mui/material';
-import { ApplicationProvider } from './contexts/ApplicationContexts';
+import { ApplicationProvider } from './contexts/ApplicationContext';
+import { InteractionProvider } from './contexts/InteractionContext';
 
 const theme = createTheme({
   palette: {
@@ -28,7 +29,9 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <ApplicationProvider>
-        <App />
+        <InteractionProvider>
+          <App />
+        </InteractionProvider>
       </ApplicationProvider>
      </ThemeProvider>
   </React.StrictMode>
