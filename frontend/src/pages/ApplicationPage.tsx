@@ -7,10 +7,17 @@ import { useApplicationContext } from '../contexts/ApplicationContext';
 import { deleteApplication } from '../utils/api';
 import { Application } from '../types/application';
 import ApplicationTabBar from '../components/ApplicationTabBar';
+import { useInteractionContext } from '../contexts/InteractionContext';
+import { Interaction } from '../types/interaction';
+
+type Row = Application & {
+  last_contact: string | null;
+}
 
 const ApplicationPage: React.FC = () => {
   const navigate = useNavigate();
   const { applications, loading, refetchApplications } = useApplicationContext();
+  const { interactions, refetchInteractions } = useInteractionContext();
 
   const [search, setSearch] = React.useState<string>('');
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -69,7 +76,7 @@ const ApplicationPage: React.FC = () => {
     setOpenDialog(false);
   };
 
-  const columns: GridColDef<Application>[] = [
+  const columns: GridColDef<Row>[] = [
     {
       field: 'id',
       headerName: 'Actions',
@@ -87,8 +94,57 @@ const ApplicationPage: React.FC = () => {
     { field: 'company', headerName: 'Company', width: 100 },
     { field: 'link', headerName: 'Link', width: 150, renderCell: (params) => <Link href={params.row.link}>Link to Application</Link> },
     { field: 'job_title', headerName: 'Job Title', width: 300 },
-    { field: 'applied_timestamp', headerName: 'Applied Timestamp', width: 200, renderCell: (params) => new Date(params.row.applied_timestamp).toLocaleString() },
+    { field: 'applied_timestamp', headerName: 'Applied', width: 200, renderCell: (params) => new Date(params.row.applied_timestamp).toLocaleString() },
+    { field: 'last_contact', headerName: 'Last Contact', width: 200, renderCell: (params) => {
+      if (params.row.last_contact !== null) {
+        var eventStartTime = new Date(params.row.last_contact);
+        var eventEndTime = new Date();
+        var duration = eventEndTime.valueOf() - eventStartTime.valueOf();
+        console.log('Duration in milliseconds: ', duration);
+
+        const millisecondsPerDay = 24 * 60 * 60 * 1000;
+        const millisecondsPerHour = 60 * 60 * 1000;
+        const millisecondsPerMinute = 60 * 1000;
+
+        if (duration < millisecondsPerDay) {
+            // Less than a day
+            const hours = Math.floor(duration / millisecondsPerHour);
+            const minutes = Math.floor((duration % millisecondsPerHour) / millisecondsPerMinute);
+            return `${hours} hours ${minutes} minutes`;
+        } else {
+            // One day or more
+            const differenceInDays = Math.floor(duration / millisecondsPerDay);
+            return `${differenceInDays} days`;
+        }
+      }
+      return 'None';
+    }},
   ];
+
+  const latestInteractionForApp: Record<string, Interaction> = {};
+  interactions.forEach((i: Interaction) => {
+    if (i.application_id in latestInteractionForApp) {
+      const current =  new Date(latestInteractionForApp[i.application_id].interaction_timestamp)
+      const iDate = new Date(i.interaction_timestamp);
+      if (current < iDate) {
+        latestInteractionForApp[i.application_id] = i;
+      }
+    } else {
+      latestInteractionForApp[i.application_id] = i;
+    }
+  })
+
+  const rows: Row[] = filteredApplications.map((a: Application) => {
+    let last_contact = null;
+    if ((a.id as string) in latestInteractionForApp) {
+      last_contact = latestInteractionForApp[a.id as string].interaction_timestamp;
+    }
+
+    return {
+      ...a,
+      last_contact
+    }
+  });
 
   return (
     <div>
@@ -117,7 +173,7 @@ const ApplicationPage: React.FC = () => {
               </Box>
             </Box>
             <DataGrid
-              rows={filteredApplications}
+              rows={rows}
               columns={columns}
               slots={{ toolbar: GridToolbar }}
               loading={loading}
