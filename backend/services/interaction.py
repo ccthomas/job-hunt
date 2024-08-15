@@ -1,19 +1,16 @@
 import logging
+from logging import Logger
 from typing import List, Dict, Any
 from uuid import uuid4
 import psycopg2
 
 from models import Interaction, InteractionType
+from utils import setup_logger
 
 class InteractionService:
     def __init__(self, db):
         self.db = db
-        # Set up logging
-        self.logger = logging.getLogger(__name__)
-        self.logger.setLevel(logging.DEBUG)  # Set the logging level
-        handler = logging.StreamHandler()  # You could also use FileHandler to log to a file
-        handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
-        self.logger.addHandler(handler)
+        self.logger = setup_logger(__name__, level=logging.DEBUG)
 
     def delete(self, interaction_id: str):
         connection = None
