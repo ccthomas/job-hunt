@@ -1,5 +1,3 @@
-import logging
-
 from flask import Flask
 from flask_cors import CORS
 import os
@@ -18,12 +16,6 @@ def home():
 
 
 if __name__ == "__main__":
-    logger = logging.getLogger(__name__)
-    logger.setLevel(logging.DEBUG)  # Set the logging level
-    handler = logging.StreamHandler()  # You could also use FileHandler to log to a file
-    handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
-    logger.addHandler(handler)
-
     # Create a DatabaseConnection instance
     db = DatabaseConnection(
         db_type='postgres',
