@@ -1,5 +1,9 @@
 # Job Hunt
 
+Job Hunt is a Demo Application for assiting with an individuals job search, by assiting with the management of applications in flight.
+
+From a development persepctive, I treated this app simialr to a Proof of Concept (PoC). I cut many cornors and focued more on the delivery of features.
+
 ## Tutorials
 1.  [Hello World Tutorial](https://dionmunk.com/posts/2020/04/22/hello-world-in-a-python-3-docker-container)
 1. [Flask in PyCharm](https://medium.com/@mushtaque87/flask-in-pycharm-community-edition-c0f68400d91e)
