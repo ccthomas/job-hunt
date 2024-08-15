@@ -1,19 +1,15 @@
 import logging
-
+from logging import Logger
 from flask import jsonify, request
 from models import Application
 from services import ApplicationService
+from utils import setup_logger
+
 
 class ApplicationController:
     def __init__(self, service: ApplicationService):
         self.service = service
-
-        # Set up logging
-        self.logger = logging.getLogger(__name__)
-        self.logger.setLevel(logging.DEBUG)  # Set the logging level
-        handler = logging.StreamHandler()  # You could also use FileHandler to log to a file
-        handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
-        self.logger.addHandler(handler)
+        self.logger = setup_logger(__name__, level=logging.DEBUG)
 
     def register_routes(self, app):
         @app.route('/application', methods=['GET'])
