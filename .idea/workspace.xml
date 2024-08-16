@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="69c225aa-d978-4f6b-aa7f-df65b4482ba1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/utils/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/utils/logger.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/__main__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/application.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/application.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/controllers/interaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/interaction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/database/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/database/database.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/application.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/application.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/interaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/interaction.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +34,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "python-logging"
+    "git-widget-placeholder": "main"
   }
 }]]></component>
   <component name="RecentsManager">

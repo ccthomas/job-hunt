@@ -6,7 +6,7 @@ const resources = [
   { name: 'LinkedIn', url: 'https://www.linkedin.com' },
   { name: 'Indeed', url: 'https://www.indeed.com' },
   { name: 'Glassdoor', url: 'https://www.glassdoor.com' },
-  { name: 'Monster', url: 'https://www.monster.com' },
+  { name: 'Underdog', url: 'https://candidate.underdog.io' },
   { name: 'ResumeGenius', url: 'https://resumegenius.com' },
   { name: 'CoverLetterNow', url: 'https://www.coverletternow.com' },
 ];
