@@ -71,9 +71,21 @@ class ApplicationService:
 
             self.logger.debug(f"Retrieved {len(rows)} rows from the database.")
 
-            # Convert rows to Application instances and then to dictionaries
-            applications = [Application(*row) for row in rows]
-            return [app.to_dict() for app in applications]
+            # Convert each row tuple to a dictionary
+            applications_dicts = [
+                {
+                    'id': row[0],
+                    'company': row[1],
+                    'link': row[2],
+                    'job_title': row[3],
+                    'applied_timestamp': row[4]
+                }
+                for row in rows
+            ]
+
+            # Convert dictionaries to Application instances
+            applications = [Application(**data) for data in applications_dicts]
+            return applications
 
         except psycopg2.Error as e:
             self.logger.error(f"Database error: {e}")
@@ -88,12 +100,13 @@ class ApplicationService:
                 connection.close()
 
     def save(self, application: Application) -> Application:
+        self.logger.debug(f"Saving application: {application}")
         connection = None
         cursor = None
 
-        if application.id is None:
-            application.id = str(uuid4())
-            self.logger.debug(f"Generated new UUID for application: {application.id}")
+        if application.application_id is None:
+            application.application_id = str(uuid4())
+            self.logger.debug(f"Generated new UUID for application: {application.application_id}")
 
         try:
             self.logger.debug("Connecting to the database.")
@@ -111,7 +124,7 @@ class ApplicationService:
                     job_title = EXCLUDED.job_title,
                     applied_timestamp = EXCLUDED.applied_timestamp;
             ''', {
-                'id': application.id,
+                'id': application.application_id,
                 'company': application.company,
                 'link': application.link,
                 'job_title': application.job_title,
