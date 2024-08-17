@@ -2,6 +2,7 @@ import logging
 from logging import Logger
 
 from flask import jsonify, request
+from pydantic import ValidationError
 from models import Interaction, InteractionType
 from services import InteractionService
 from utils import setup_logger
@@ -23,12 +24,14 @@ class InteractionController:
                 # Call the service method to get interactions by application ID
                 interactions = self.service.get_all(application_id)
 
-                self.logger.debug(f"Got interactions with query param application ID: {application_id}")
+                interactions_dict = [interaction.to_dict() for interaction in interactions]
 
-                if not interactions:
+                self.logger.debug(f"Got interactions with query param application ID: {interactions_dict}")
+
+                if not interactions_dict:
                     return jsonify({"message": "No interactions found for this application ID"}), 404
 
-                return jsonify(interactions), 200
+                return jsonify(interactions_dict), 200
 
             except Exception as e:
                 self.logger.error(f"Error fetching interactions: {e}")
@@ -42,20 +45,23 @@ class InteractionController:
                 if not json_data:
                     return jsonify({"error": "No input data provided"}), 400
 
-                # Validate and convert interaction type
-                interaction_type_str = json_data.get('type')
-                if interaction_type_str not in InteractionType.__members__:
-                    return jsonify({"error": "Invalid interaction type"}), 400
-                interaction_type = InteractionType(interaction_type_str)
-
                 # Create Interaction instance from JSON
                 interaction = Interaction.from_json(json_data)
-                interaction.type = interaction_type  # Set the validated type
 
                 # Save the interaction
                 persisted = self.service.save(interaction)
 
+                self.logger.debug(f"Application saved with ID: {persisted.interaction_id}")
                 return jsonify(persisted.to_dict()), 201
+
+            except ValidationError as ve:
+                # Extract detailed validation errors
+                error_details = ve.errors()
+                self.logger.error(f"Invalid data provided: {error_details}")
+                return jsonify({
+                    "error": "Invalid data provided",
+                    "details": error_details
+                }), 400
 
             except Exception as e:
                 app.logger.error(f"Error saving interaction: {e}")

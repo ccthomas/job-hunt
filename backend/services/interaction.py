@@ -81,12 +81,30 @@ class InteractionService:
             rows = cursor.fetchall()
 
             self.logger.debug(f"Retrieved {len(rows)} rows from the database.")
+            self.logger.debug(f"Map {rows} rows.")
 
-            # Convert rows to Interaction instances and then to dictionaries
-            interactions = [Interaction(*row) for row in rows]
+            # Convert each row tuple to a dictionary
+            self.logger.debug("Convert each row tuple to a dictionary.")
+            interactions_dicts = [
+                {
+                    'interaction_id': row[0],
+                    'application_id': row[1],
+                    'name': row[2],
+                    'company': row[3],
+                    'job_title': row[4],
+                    'interaction_type': row[5],
+                    'rating': row[6],
+                    'notes': row[7],
+                    'interaction_timestamp': row[8]
+                }
+                for row in rows
+            ]
+
+            self.logger.debug(f"Convert rows to Interaction instances and then to dictionaries: {interactions_dicts}.")
+            interactions = [Interaction(**data) for data in interactions_dicts]
 
             self.logger.debug(f"Returning interactions: {interactions}.")
-            return [interaction.to_dict() for interaction in interactions]
+            return interactions
 
         except psycopg2.Error as e:
             self.logger.error(f"Database error: {e}")
@@ -104,13 +122,9 @@ class InteractionService:
         connection = None
         cursor = None
 
-        if interaction.id is None:
-            interaction.id = str(uuid4())
-            self.logger.debug(f"Generated new UUID for interaction: {interaction.id}")
-
-        if not self._validate_interaction_type(interaction.type):
-            self.logger.error(f"Invalid interaction type: {interaction.type}")
-            raise ValueError(f"Invalid interaction type: {interaction.type}")
+        if interaction.interaction_id is None:
+            interaction.interaction_id = str(uuid4())
+            self.logger.debug(f"Generated new UUID for interaction: {interaction.interaction_id}")
 
         try:
             self.logger.debug("Connecting to the database.")
@@ -132,12 +146,12 @@ class InteractionService:
                     notes = EXCLUDED.notes,
                     interaction_timestamp = EXCLUDED.interaction_timestamp;
             ''', {
-                'id': interaction.id,
+                'id': interaction.interaction_id,
                 'application_id': interaction.application_id,
                 'name': interaction.name,
                 'company': interaction.company,
                 'job_title': interaction.job_title,
-                'type': interaction.type,
+                'type': interaction.interaction_type,
                 'rating': interaction.rating,
                 'notes': interaction.notes,
                 'interaction_timestamp': interaction.interaction_timestamp
@@ -159,8 +173,3 @@ class InteractionService:
                 connection.close()
 
         return interaction
-
-    def _validate_interaction_type(self, interaction_type: str) -> bool:
-        """Validate if the provided interaction type is valid."""
-        self.logger.debug(f"Database error: {interaction_type}")
-        return interaction_type in InteractionType
