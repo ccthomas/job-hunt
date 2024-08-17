@@ -9,9 +9,10 @@ import { Application } from '../types/application';
 import ApplicationTabBar from '../components/ApplicationTabBar';
 import { useInteractionContext } from '../contexts/InteractionContext';
 import { Interaction } from '../types/interaction';
+import { formatType, formatTypeDifference } from '../utils/formatters';
 
 type Row = Application & {
-  last_contact: string | null;
+  last_interaction: Interaction | null;
 }
 
 const ApplicationPage: React.FC = () => {
@@ -94,30 +95,15 @@ const ApplicationPage: React.FC = () => {
     { field: 'company', headerName: 'Company', width: 100 },
     { field: 'link', headerName: 'Link', width: 150, renderCell: (params) => <Link href={params.row.link}>Link to Application</Link> },
     { field: 'job_title', headerName: 'Job Title', width: 300 },
-    { field: 'applied_timestamp', headerName: 'Applied', width: 200, renderCell: (params) => new Date(params.row.applied_timestamp).toLocaleString() },
+    { field: 'applied_timestamp', headerName: 'Applied', width: 200, renderCell: (params) => {
+      return `${new Date(params.row.applied_timestamp).toLocaleDateString()} (${formatTypeDifference(params.row.applied_timestamp, undefined)})`
+    } },
     { field: 'last_contact', headerName: 'Last Contact', width: 200, renderCell: (params) => {
-      if (params.row.last_contact !== null) {
-        var eventStartTime = new Date(params.row.last_contact);
-        var eventEndTime = new Date();
-        var duration = eventEndTime.valueOf() - eventStartTime.valueOf();
-        console.log('Duration in milliseconds: ', duration);
-
-        const millisecondsPerDay = 24 * 60 * 60 * 1000;
-        const millisecondsPerHour = 60 * 60 * 1000;
-        const millisecondsPerMinute = 60 * 1000;
-
-        if (duration < millisecondsPerDay) {
-            // Less than a day
-            const hours = Math.floor(duration / millisecondsPerHour);
-            const minutes = Math.floor((duration % millisecondsPerHour) / millisecondsPerMinute);
-            return `${hours} hours ${minutes} minutes`;
-        } else {
-            // One day or more
-            const differenceInDays = Math.floor(duration / millisecondsPerDay);
-            return `${differenceInDays} days`;
-        }
+      if (params.row.last_interaction !== null) {
+        const elapse = formatTypeDifference(params.row.last_interaction.interaction_timestamp, undefined);;
+        return `${formatType(params.row.last_interaction.type)} ${elapse} ago.`
       }
-      return 'None';
+      return 'Waiting to hear back.';
     }},
   ];
 
@@ -135,14 +121,14 @@ const ApplicationPage: React.FC = () => {
   })
 
   const rows: Row[] = filteredApplications.map((a: Application) => {
-    let last_contact = null;
+    let last_interaction = null;
     if ((a.id as string) in latestInteractionForApp) {
-      last_contact = latestInteractionForApp[a.id as string].interaction_timestamp;
+      last_interaction = latestInteractionForApp[a.id as string];
     }
 
     return {
       ...a,
-      last_contact
+      last_interaction
     }
   });
 

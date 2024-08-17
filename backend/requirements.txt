@@ -6,6 +6,7 @@ colorama==0.4.4
 Flask==2.0.2
 Flask-Cors==4.0.1
 eval-type-backport==0.2.0
+python-dateutil==2.9.0
 Pydantic==2.8.2
 itsdangerous==2.0.1
 Jinja2==3.0.3

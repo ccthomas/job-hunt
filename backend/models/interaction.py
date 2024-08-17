@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import uuid
+from dateutil.parser import isoparse
 from datetime import datetime
 from typing import Dict, Any, Optional, Union
 from pydantic import BaseModel, UUID4, AfterValidator
@@ -12,6 +13,8 @@ class InteractionType(str, Enum):
     HIRING_MANAGER = 'HIRING_MANAGER'
     INITIAL_CONTACT = 'INITIAL_CONTACT'
     PHONE_SCREENING = 'PHONE_SCREENING'
+    REJECTED = 'REJECTED'
+    TURNED_DOWN = 'TURNED_DOWN'
 
 class Interaction(BaseModel):
     interaction_id: Optional[Union[UUID4, str]] = None
@@ -32,6 +35,10 @@ class Interaction(BaseModel):
             raise TypeError('bad type')
         interaction_type = InteractionType(interaction_type_str)
 
+        # Parse datetime if available
+        timestamp_str = json_data.get('interaction_timestamp')
+        interaction_timestamp = isoparse(timestamp_str) if timestamp_str else None
+
         return Interaction(
             interaction_id=json_data['id'] if 'id' in json_data else None,
             application_id=json_data.get('application_id'),
@@ -41,7 +48,7 @@ class Interaction(BaseModel):
             interaction_type=interaction_type,
             rating=json_data.get('rating'),
             notes=json_data.get('notes'),
-            applied_timestamp=json_data.get('interaction_timestamp')
+            interaction_timestamp=interaction_timestamp
         )
 
     def to_dict(self) -> Dict[str, Any]:
