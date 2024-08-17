@@ -6,11 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="69c225aa-d978-4f6b-aa7f-df65b4482ba1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/controllers/application.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/application.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/controllers/interaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/controllers/interaction.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/models/application.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/application.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/interaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/interaction.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/services/application.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/application.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/interaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/interaction.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,10 +101,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/backend/models/interaction.py</url>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/backend/database/database.py</url>
           <option name="timeStamp" value="2" />

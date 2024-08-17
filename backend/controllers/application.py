@@ -21,7 +21,7 @@ class ApplicationController:
 
                 self.logger.debug(f"Applications Retrieved {len(applications)}.")
                 # Convert the list of Application objects to dictionaries for JSON serialization
-                applications_dict = [app.to_dict() for app in applications]
+                applications_dict = [application.to_dict() for application in applications]
                 self.logger.debug(f"Returning {len(applications_dict)} applications")
                 return jsonify(applications_dict)
             except Exception as e:

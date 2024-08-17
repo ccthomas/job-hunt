@@ -74,7 +74,7 @@ class ApplicationService:
             # Convert each row tuple to a dictionary
             applications_dicts = [
                 {
-                    'id': row[0],
+                    'application_id': row[0],
                     'company': row[1],
                     'link': row[2],
                     'job_title': row[3],
