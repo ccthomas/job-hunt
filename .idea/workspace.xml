@@ -6,14 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="69c225aa-d978-4f6b-aa7f-df65b4482ba1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/application.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/application.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/models/interaction.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/interaction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ApplicationPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ApplicationPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/InteractionEditPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/InteractionEditPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/InteractionPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/InteractionPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/types/interaction.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/types/interaction.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/utils/formatters.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/utils/formatters.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +35,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "rejection-interaction",
+    "git-widget-placeholder": "main",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
