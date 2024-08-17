@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Box, TextField, Button, Typography, Paper, Snackbar, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
+import { Box, TextField, Button, Typography, Paper, Snackbar, MenuItem, Select, InputLabel, FormControl, Tooltip } from '@mui/material';
 import { Rating } from '@mui/material';
 import { saveInteraction } from '../utils/api'; // Ensure this function is implemented
-import { Interaction, InteractionType } from '../types/interaction'; // Adjust the path if needed
+import { Interaction, interactionDescriptions, InteractionType } from '../types/interaction'; // Adjust the path if needed
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useApplicationContext } from '../contexts/ApplicationContext'; // Adjust if needed
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -179,9 +179,11 @@ const InteractionEditPage: React.FC = () => {
                   onChange={(event) => setType(event.target.value as InteractionType)}
                   error={formErrors.type}
                 >
-                  {Object.values(InteractionType).map((option: InteractionType) => (
+                  {Object.values(InteractionType).map((option: InteractionType) => ( 
                     <MenuItem key={option} value={option}>
-                      {formatType(option)}
+                      <Tooltip title={interactionDescriptions[option]}>
+                        <span>{formatType(option)}</span>
+                      </Tooltip>
                     </MenuItem>
                   ))}
                 </Select>

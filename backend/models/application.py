@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 import uuid
+from dateutil.parser import isoparse
 from datetime import datetime
 from typing import Dict, Any, Optional, Union
 from pydantic import BaseModel, UUID4, AfterValidator
@@ -17,12 +18,16 @@ class Application(BaseModel):
 
     @staticmethod
     def from_json(json_data: Dict[str, Any]) -> 'Application':
+        # Parse datetime if available
+        timestamp_str = json_data.get('applied_timestamp')
+        applied_timestamp = isoparse(timestamp_str) if timestamp_str else None
+
         return Application(
             application_id=json_data['id'] if 'id' in json_data else None,
             company=json_data.get('company'),
             link=json_data.get('link'),
             job_title=json_data.get('job_title'),
-            applied_timestamp=json_data.get('applied_timestamp')
+            applied_timestamp=applied_timestamp
         )
 
     def to_dict(self) -> Dict[str, Any]:
@@ -31,7 +36,7 @@ class Application(BaseModel):
             'company': self.company,
             'link': self.link,
             'job_title': self.job_title,
-            'applied_timestamp': self.applied_timestamp
+            'applied_timestamp': str(self.applied_timestamp)
         }
 
     class Config:

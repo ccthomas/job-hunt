@@ -1,11 +1,11 @@
 import React from 'react';
-import { Box, TextField, IconButton, Menu, MenuItem, Button, Typography, Paper, Dialog, DialogActions, DialogContent, DialogTitle, Rating } from '@mui/material';
+import { Box, TextField, IconButton, Menu, MenuItem, Button, Typography, Paper, Dialog, DialogActions, DialogContent, DialogTitle, Rating, Tooltip } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom';
-import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
+import { DataGrid, GridBody, GridCell, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import { useInteractionContext } from '../contexts/InteractionContext';
 import { deleteInteraction } from '../utils/api';
-import { Interaction } from '../types/interaction';
+import { Interaction, interactionDescriptions, InteractionType } from '../types/interaction';
 import ApplicationTabBar from '../components/ApplicationTabBar';
 import { formatType } from '../utils/formatters';
 
@@ -83,7 +83,10 @@ const InteractionPage: React.FC = () => {
     },
     { field: 'company', headerName: 'Company', width: 100 },
     { field: 'job_title', headerName: 'Job Title', width: 300 },
-    { field: 'type', headerName: 'Type', width: 200, renderCell: (params) => formatType(params.value as string) },
+    { field: 'type', headerName: 'Type', width: 200, renderCell: (params) => (
+        <Tooltip title={interactionDescriptions[params.value as InteractionType]}>
+          <span>{formatType(params.value as string)}</span>
+        </Tooltip>)},
     { field: 'rating', headerName: 'Rating', width:  200, renderCell: (params) => <Rating name="read-only" value={params.row.rating} readOnly /> },
     {
       field: 'interaction_timestamp',
